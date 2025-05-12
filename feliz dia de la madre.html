@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Marck+Script&amp;display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><text x="0" y="48" font-size="48">❤️</text></svg>'>
+
+    <title>¡Feliz Día De La Madre Mi Cielo! ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primario: #fff;
+            --fondo: #ffebf2; 
+            --fondo-sobre: #ffe3ed; 
+            --solapa-sobre: #ffccd5; 
+            --cuerpo-sobre: #ffc1d1; 
+            --sombra: rgba(0, 0, 0, 0.2);
+            --texto: #003049; 
+            --corazon: #ff477e; 
+        }
+
+        body {
+            background: var(--fondo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        h1 {
+            font-family: "Marck Script", serif; 
+            text-align: center;
+            font-size: 60px;
+            margin-bottom: 50px;
+            color: #444;
+        }
+
+        .contenedor {
+            width: 400px;
+        }
+
+        .envoltura-sobre {
+            position: relative;
+            background-color: var(--fondo-sobre);
+            box-shadow: 0 0 40px var(--sombra);
+            border-radius: 15px;
+        }
+
+        .sobre {
+            position: relative;
+            width: 400px;
+            height: 300px;
+        }
+
+        .sobre::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 4;
+            border-top: 180px solid var(--solapa-sobre);
+            border-right: 200px solid transparent;
+            border-left: 200px solid transparent;
+            transform-origin: top;
+            transition: all 0.5s ease-in-out 0.7s;
+            border-radius: 10px;
+        }
+
+        .solapa-derecha {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(100% 0, 0 100%, 100% 100%);
+            background-color: var(--cuerpo-sobre);
+            border-bottom-right-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        .solapa-izquierda {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0 0, 0 100%, 100% 100%);
+            background-color: var(--cuerpo-sobre);
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .carta {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primario);
+            text-align: center;
+            box-shadow: 0 0 5px var(--sombra);
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform .5s ease-in-out;
+        }
+
+        .contenido {
+            font-family: "Gill Sans", Calibri, sans-serif;
+            color: var(--texto);
+            text-align: left;
+            font-size: 12px;
+            border: 3px dotted var(--texto);
+            padding: 10px;
+            height: 100%;
+            line-height: 14px;
+            cursor: pointer;
+            overflow-Y: scroll;
+        }
+
+        .corazon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            background-color: var(--corazon);
+            transform: translate(-50%,0) rotate(45deg);
+            transition: transform 0.5s ease-in-out 1s;
+            z-index: 999;
+            cursor: pointer;
+        }
+
+        .corazon::before,
+        .corazon::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: var(--corazon);
+            border-radius: 100%;
+
+        }
+
+        .corazon:before {
+            top: -15px;
+        }
+
+        .corazon:after {
+            right: 15px;
+        }
+
+        /*Agregar clases dinamicos*/
+        .abierto .sobre::before {
+            transform: rotateX(180deg);
+            z-index: 0;
+        }
+
+        .abierto .corazon {
+            transform: rotate(90deg);
+            transition-delay: 0.4s;
+        }
+
+        .carta.mostrar-carta {
+            transform: translateY(-290px);
+            transition: transform .5s ease-in-out;
+        }
+
+        .carta.cerrando-carta {
+            transform: translateY(-290px);
+            transition: transform .5s ease-in-out;
+        }
+
+        .carta.abierta {
+            z-index: 10000;
+        }
+
+        .envoltura-sobre.desactivar-sobre .sobre::before {
+            pointer-events: none;
+        }
+
+        /*Scroll personalizado*/
+
+        /*
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--cuerpo-sobre);
+            border-radius: 4px;
+        }
+
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--corazon);
+        }
+        */
+
+        /*Vista celular*/
+
+        @media screen and (max-width:400px) {
+            .contenedor {
+                width: 300px;
+            }
+
+            .sobre {
+                width: 300px;
+                height: 250px;
+            }
+
+            .sobre::before {
+                border-top:150px solid var(--solapa-sobre) ;
+                border-right: 150px solid transparent;
+                border-left: 150px solid transparent;
+            }
+
+        }
+        .contenido code {
+        display: block;
+        background-color: #f4f4f4;
+        padding: 1rem;
+        border-radius: 5px;
+        margin-top: 1rem;
+        font-family: monospace;
+        }
+
+        .contenido p {
+        margin: 0.5rem 0;
+        line-height: 1.6;
+        }
+
+        .contenedor h1 {
+        color: #e91e63;
+        text-align: center;
+        }
+
+        .contenido h1 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            color: #d81b60; /* un rosado suave que resalte */
+            text-align: center;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>¡Feliz Día De La Madre Mi Vida! ❤️</h1>
+    <div class="contenedor">
+        <div class="envoltura-sobre">
+            <div class="sobre">
+                <div class="carta">
+                    <div class="contenido">
+                        <h1>💌 ¡Feliz Día de las Madres! 💌<br><br>😘 ¡MI AMOR! <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><text x="0" y="21" font-size="18" transform="scale(-1,1)" text-anchor="end">😘</text></svg></h1>
+                        <p><b style="color:#d81b60; font-size: 16px;">Mi amor</b></p>
+                        <p>
+                            Hoy celebro con <b style="color:#e91e63;">alegría</b> este hermoso día contigo, aunque aún no tengamos hijos, 
+                            yo sé que <b style="color:#c2185b;">Dios</b>, en <i>Su tiempo perfecto</i>, nos bendecirá con ese regalo.
+                            Porque todo lo que hacemos, lo ponemos <b style="color:#ad1457;">primero en Sus manos</b>, y sé que 
+                            Él tiene <b>grandes planes</b> para nosotros como familia.
+                        </p>
+
+                        <p>
+                            Te <i>admiro profundamente</i> por la <b>ternura</b>, la <b>paciencia</b> y el <b>amor</b> que ya llevas dentro de ti. 
+                            Veo en ti a la <b style="color:#ec407a;">futura madre de nuestros hijos</b>, una <i>mujer virtuosa</i> que ama, 
+                            cuida y honra a <b style="color:#c2185b;">Dios</b>. Cada día doy gracias al Señor por tu vida y 
+                            por la oportunidad de <b>construir un futuro</b> a tu lado.
+                        </p>
+
+                        <p>
+                            Hoy quiero decirte que <b style="color:#d81b60;">eres especial</b>, que Dios te hizo con un 
+                            <b style="font-style:italic;">propósito hermoso</b>, y parte de ese propósito, si Él lo permite, será 
+                            <i>criar juntos hijos que también lo amen a Él</i>. Estoy <b>emocionado</b> por lo que vendrá, 
+                            confiando siempre en que <b style="color:#6a1b9a;">Dios guiará cada paso</b> de nuestro camino.
+                        </p>
+
+                        <p>
+                            <b style="color:#ad1457; font-size: 16px;">Feliz Día de las Madres</b>, 
+                            mi <i>futura mamá favorita</i>, mi <b>novia hermosa</b>, y <b style="color:#c2185b;">mi bendición</b>.
+                        </p>
+
+                        <p class="firma">
+                            Con todo mi amor y con <b style="color:#880e4f;">Dios en el centro</b>,<br/>
+                            <i>Tu novio que te ama y ora por ti.</i>
+                        </p>
+
+                        <p>
+                            <b style="color:#4a148c;">PD:</b> Si esta carta fuera un versículo, sería:
+                        </p>
+                        <code><b>"Deléitate en el Señor, y Él concederá los deseos de tu corazón." — Salmo 37:4</b></code>
+                    </div>
+                </div>
+            </div>
+            <div class="corazon"></div>
+            <div class="solapa-derecha"></div>
+            <div class="solapa-izquierda"></div>
+        </div>
+    </div>
+    <!-- <script src="script_v2.js"></script> -->
+     <script>
+        const envoltura = document.querySelector(".envoltura-sobre");
+        const carta = document.querySelector(".carta");
+
+        document.addEventListener("click", (e) => {
+            if (e.target.matches(".sobre") || 
+                e.target.matches(".solapa-derecha") ||
+                e.target.matches(".solapa-izquierda") ||
+                e.target.matches(".corazon")) {
+                envoltura.classList.toggle("abierto");
+            
+            } else if (e.target.matches(".sobre *")) {
+                if (!carta.classList.contains("abierta")) {
+                    carta.classList.add("mostrar-carta");
+
+                    setTimeout(() => {
+                        carta.classList.remove("mostrar-carta");
+                        carta.classList.add("abierta");
+                    }, 500);
+                    envoltura.classList.add("desactivar-sobre")
+                } else {
+                    carta.classList.add("cerrando-carta");
+                    envoltura.classList.remove("desactivar-sobre");
+
+                    setTimeout(() => {
+                        carta.classList.remove("cerrando-carta")
+                        carta.classList.remove("abierta")
+                    }, 500);
+                }
+
+            } 
+        })
+     </script>
+
+</body></html>
